@@ -563,9 +563,11 @@ SD_XL_BASE_RATIOS = {
 }
 
 
-aspect_ratios = {str(v[0])+'×'+str(v[1]):v for k, v in SD_XL_BASE_RATIOS.items()}
+aspect_ratios = {
+    f'{str(v[0])}×{str(v[1])}': v for k, v in SD_XL_BASE_RATIOS.items()
+}
 
 
 def apply_style(style, positive, negative):
     p, n = styles.get(style, default_style)
-    return p.replace('{prompt}', positive), n + ', ' + negative
+    return p.replace('{prompt}', positive), f'{n}, {negative}'

@@ -97,11 +97,7 @@ class KSamplerWithRefiner:
             if start_step < (len(sigmas) - 1):
                 sigmas = sigmas[start_step:]
             else:
-                if latent_image is not None:
-                    return latent_image
-                else:
-                    return torch.zeros_like(noise)
-
+                return latent_image if latent_image is not None else torch.zeros_like(noise)
         positive = positive[:]
         negative = negative[:]
 
@@ -190,11 +186,9 @@ class KSamplerWithRefiner:
                         cond_concat.append(blank_inpaint_image_like(noise))
             extra_args["cond_concat"] = cond_concat
 
-        if sigmas[0] != self.sigmas[0] or (self.denoise is not None and self.denoise < 1.0):
-            max_denoise = False
-        else:
-            max_denoise = True
-
+        max_denoise = sigmas[0] == self.sigmas[0] and (
+            self.denoise is None or self.denoise >= 1.0
+        )
         if self.sampler == "uni_pc":
             samples = uni_pc.sample_unipc(self.model_wrap, noise, latent_image, sigmas,
                                           sampling_function=sampling_function, max_denoise=max_denoise,

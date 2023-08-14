@@ -84,7 +84,6 @@ def worker():
         if len(buffer) > 0:
             task = buffer.pop(0)
             handler(task)
-    pass
 
 
 threading.Thread(target=worker, daemon=True).start()

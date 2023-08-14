@@ -54,7 +54,7 @@ def refresh_refiner_model(name):
     if name == 'None':
         xl_refiner = None
         xl_refiner_hash = ''
-        print(f'Refiner unloaded.')
+        print('Refiner unloaded.')
         return
 
     filename = os.path.join(modules.path.modelfile_path, name)
@@ -68,7 +68,7 @@ def refresh_refiner_model(name):
         print('Model not supported. Fooocus only support SDXL refiner as the refiner.')
         xl_refiner = None
         xl_refiner_hash = ''
-        print(f'Refiner unloaded.')
+        print('Refiner unloaded.')
         return
 
     xl_refiner_hash = name
@@ -165,6 +165,4 @@ def process(positive_prompt, negative_prompt, steps, switch, width, height, imag
 
     decoded_latent = core.decode_vae(vae=xl_base_patched.vae, latent_image=sampled_latent)
 
-    images = core.image_to_numpy(decoded_latent)
-
-    return images
+    return core.image_to_numpy(decoded_latent)

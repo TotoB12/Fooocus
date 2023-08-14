@@ -116,8 +116,8 @@ def requirements_met(requirements_file):
             if m is None:
                 return False
 
-            package = m.group(1).strip()
-            version_required = (m.group(2) or "").strip()
+            package = m[1].strip()
+            version_required = (m[2] or "").strip()
 
             if version_required == "":
                 continue

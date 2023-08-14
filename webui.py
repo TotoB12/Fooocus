@@ -39,7 +39,9 @@ def generate_clicked(*args):
     return
 
 
-shared.gradio_root = gr.Blocks(title='Fooocus ' + fooocus_version.version, css=modules.html.css).queue()
+shared.gradio_root = gr.Blocks(
+    title=f'Fooocus {fooocus_version.version}', css=modules.html.css
+).queue()
 with shared.gradio_root:
     with gr.Row():
         with gr.Column():
@@ -81,7 +83,7 @@ with shared.gradio_root:
                     modules.path.update_all_model_names()
                     results = []
                     results += [gr.update(choices=modules.path.model_filenames), gr.update(choices=['None'] + modules.path.model_filenames)]
-                    for i in range(5):
+                    for _ in range(5):
                         results += [gr.update(choices=['None'] + modules.path.lora_filenames), gr.update()]
                     return results
 
